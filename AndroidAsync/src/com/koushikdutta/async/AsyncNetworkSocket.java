@@ -82,11 +82,20 @@ public class AsyncNetworkSocket implements AsyncSocket {
         }
 
         try {
-            int before = list.remaining();
-            ByteBuffer[] arr = list.getAllArray();
-            mChannel.write(arr);
-            list.addAll(arr);
-            handleRemaining(list.remaining());
+            // int before = list.remaining();
+            // ByteBuffer[] arr = list.getAllArray();
+            // mChannel.write(arr);
+            // list.addAll(arr);
+            // handleRemaining(list.remaining());
+             int before = list.remaining();
+            int remaining = before;
+            while (remaining > 0) { // busy wait or the socket will timeout with messages > 345kB
+                ByteBuffer[] arr = list.getAllArray();
+                mChannel.write(arr);
+                list.addAll(arr);
+                handleRemaining(list.remaining());
+                remaining = list.remaining();
+            }
             mServer.onDataSent(before - list.remaining());
         }
         catch (IOException e) {
