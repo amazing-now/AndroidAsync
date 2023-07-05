@@ -43,7 +43,9 @@ android {
 
 
         testImplementation 'junit:junit:4.12'
-        androidTestImplementation 'com.android.support.test:runner:1.0.2'
+        androidTestImplementation 'androidx.test:rules:1.5.0'
+        androidTestImplementation 'androidx.test:runner:1.5.0'
+//        androidTestImplementation 'com.android.support.test:runner:1.0.2'
         androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
         // for when i wanna test this against gms conscrypt
         androidTestImplementation 'com.google.android.gms:play-services-base:17.0.0'
